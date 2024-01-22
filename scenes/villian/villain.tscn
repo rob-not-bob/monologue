@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4tkbuubj0shc"]
+
+[ext_resource type="Texture2D" uid="uid://b57urhgom3xqq" path="res://assets/monologue.png" id="1_kon44"]
+[ext_resource type="Script" path="res://scenes/villian/villain.gd" id="2_uiahk"]
+
+[node name="villain" type="Sprite2D"]
+texture = ExtResource("1_kon44")
+region_enabled = true
+region_rect = Rect2(128, 224, 32, 32)
+script = ExtResource("2_uiahk")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccfi5g4gtvk0p"]
+
+[ext_resource type="Texture2D" uid="uid://b57urhgom3xqq" path="res://assets/monologue.png" id="1_8r0ae"]
+[ext_resource type="Script" path="res://scenes/indicator.gd" id="2_fv48u"]
+
+[node name="indicator" type="Sprite2D"]
+texture = ExtResource("1_8r0ae")
+region_enabled = true
+region_rect = Rect2(160, 224, 32, 32)
+script = ExtResource("2_fv48u")

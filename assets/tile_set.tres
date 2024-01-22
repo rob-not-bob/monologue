@@ -1,0 +1,30 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://dkebr5rm2fevp"]
+
+[ext_resource type="Texture2D" uid="uid://b57urhgom3xqq" path="res://assets/monologue.png" id="1_gs44t"]
+[ext_resource type="PackedScene" uid="uid://biq6i58mtvsxy" path="res://scenes/hero/hero.tscn" id="2_64r4x"]
+[ext_resource type="PackedScene" uid="uid://b4tkbuubj0shc" path="res://scenes/villian/villain.tscn" id="3_hsfq6"]
+[ext_resource type="PackedScene" uid="uid://ccfi5g4gtvk0p" path="res://scenes/indicator.tscn" id="4_gd0fu"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m8plf"]
+texture = ExtResource("1_gs44t")
+texture_region_size = Vector2i(32, 32)
+0:6/0 = 0
+0:6/0/custom_data_0 = 1e+14
+0:7/0 = 0
+0:7/0/custom_data_0 = 1.0
+1:7/0 = 0
+1:7/0/custom_data_0 = 2.0
+2:7/0 = 0
+2:7/0/custom_data_0 = 1.5
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_bih48"]
+scenes/1/scene = ExtResource("2_64r4x")
+scenes/2/scene = ExtResource("3_hsfq6")
+scenes/3/scene = ExtResource("4_gd0fu")
+
+[resource]
+tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "weight"
+custom_data_layer_0/type = 3
+sources/0 = SubResource("TileSetAtlasSource_m8plf")
+sources/1 = SubResource("TileSetScenesCollectionSource_bih48")

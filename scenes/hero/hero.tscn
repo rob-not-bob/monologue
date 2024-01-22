@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://biq6i58mtvsxy"]
+
+[ext_resource type="Texture2D" uid="uid://b57urhgom3xqq" path="res://assets/monologue.png" id="1_21bhy"]
+[ext_resource type="Script" path="res://scenes/hero/hero.gd" id="2_a6xnk"]
+
+[node name="hero" type="Sprite2D"]
+texture = ExtResource("1_21bhy")
+region_enabled = true
+region_rect = Rect2(96, 224, 32, 32)
+script = ExtResource("2_a6xnk")
