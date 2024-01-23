@@ -1,0 +1,117 @@
+[gd_scene load_steps=8 format=3 uid="uid://3xdkng71rumi"]
+
+[ext_resource type="PackedScene" uid="uid://bcasgpji2bn8j" path="res://scenes/timer/countdown_timer.tscn" id="1_oya43"]
+[ext_resource type="Texture2D" uid="uid://bffqn044fbmc1" path="res://assets/grey_panel.png" id="1_ra5ut"]
+[ext_resource type="Texture2D" uid="uid://b57urhgom3xqq" path="res://assets/monologue.png" id="2_0qdks"]
+[ext_resource type="Texture2D" uid="uid://crdjvgs8q2677" path="res://assets/particles/smoke_01.png" id="4_d3bto"]
+
+[sub_resource type="Gradient" id="Gradient_r48pu"]
+offsets = PackedFloat32Array(0, 0.0371901, 0.0702479, 0.15427, 1)
+colors = PackedColorArray(0.91, 0.0728, 0.0728, 1, 0.95, 0.4769, 0.1615, 1, 0.98, 0.64043, 0.00979999, 1, 0.0392157, 0.0352941, 0.0117647, 0.74902, 0.06, 0.06, 0.06, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r13ns"]
+gradient = SubResource("Gradient_r48pu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lsm3b"]
+particle_flag_disable_z = true
+angle_min = -720.0
+angle_max = 720.0
+spread = 180.0
+initial_velocity_min = 725.54
+initial_velocity_max = 725.54
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 8.0
+color_ramp = SubResource("GradientTexture1D_r13ns")
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="Root" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftCol" type="VBoxContainer" parent="Root"]
+layout_mode = 2
+
+[node name="GameSpacer" type="Control" parent="Root/LeftCol"]
+custom_minimum_size = Vector2(1280, 768)
+layout_mode = 2
+
+[node name="top_spacer" type="Control" parent="Root/LeftCol"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Panel" type="NinePatchRect" parent="Root/LeftCol"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_ra5ut")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Root/LeftCol/Panel"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 1280.0
+offset_bottom = 244.0
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "Welcome, my dear Hero! How nice of you to drop by. I see you're looking for a fight, but first, let me just finish my little speech. After all, a good villain deserves a proper sendoff, don't you think?
+
+Now, where was I? Ah yes, the world domination plan. It's coming along quite nicely, thank you for asking. My loyal minions are working tirelessly to ensure my ultimate victory. Mwahaha! But enough about them, let's talk about you. Yes, you, the brave Hero. You've been causing quite a bit of trouble for me lately, and I must say, it's getting rather annoying. But fear not, my dear Hero, for your meddling days are numbered. Soon, I'll have the power to crush you like the insignificant bug that you are.
+
+But enough about the future, let's reminisce about the past. Do you remember that time when you foiled my plan to steal the world's supply of puppies? Oh, how I laughed at your futile attempts to stop me. And then there was that other time when you tried to sabotage my doomsday device. Such amusing memories, don't you agree?
+
+Now, I know what you're thinking: \"Why is he talking so much?\" Well, my dear Hero, it's simple really. You see, I'm a villain, and it's my duty to provide an epic monologue. It's in the job description, right after \"take over the world\" and \"destroy the hero.\" Besides, what's the point of being a supervillain if you can't enjoy the spotlight every now and then?
+
+Ah, but I digress. Where were we? Ah yes, my brilliant plan. As I was saying, my plan for global domination is almost complete. Once I activate my secret weapon – which, of course, I won't reveal to you – the world will finally bow down to my greatness. And as for you, well, let's just say you won't be around to spoil my victory party. Hehehe...
+
+Oh, look at the time! My, how it flies when one is having fun. I believe it's time for me to wrap up my monologue and get back to business. But fear not, my dear Hero, for this isn't the last you've seen of me. No, no, I have a few more tricks up my sleeve. Or should I say, a few more diabolical plans to take over the world? Muahahaha!
+
+So, until next time, stay heroic, my friend. And try not to get too bored while you wait for me to finish my monologue. Ta-ta for now!"
+
+[node name="spacer" type="Control" parent="Root/LeftCol"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="RightCol" type="VBoxContainer" parent="Root"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Root/RightCol"]
+layout_mode = 2
+alignment = 1
+
+[node name="CountdownTimer" parent="Root/RightCol/HBoxContainer" instance=ExtResource("1_oya43")]
+layout_mode = 2
+
+[node name="spacer" type="Control" parent="Root/RightCol"]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Root/RightCol"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Root/RightCol/Control"]
+scale = Vector2(30, 30)
+texture = ExtResource("2_0qdks")
+centered = false
+region_enabled = true
+region_rect = Rect2(133, 230, 25, 26)
+
+[node name="explosion" type="Node2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="smoke" type="GPUParticles2D" parent="explosion"]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_lsm3b")
+texture = ExtResource("4_d3bto")
+lifetime = 8.0
+explosiveness = 1.0

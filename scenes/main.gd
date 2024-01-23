@@ -34,7 +34,7 @@ func _process(_delta) -> void:
 	indicator.position = get_pos_snapped_to_grid(mouse_pos)
 
 	if Input.is_action_just_pressed("place_tile"):
-		var tilePos = tileMap.local_to_map(indicator.position)
+		var tilePos = get_tile_pos(indicator.position)
 		set_tile_cell(tilePos, CellTypes.Quicksand)
 		var path := calculate_path(hero.position, villian.position)
 		for point in path:
@@ -44,6 +44,10 @@ func _process(_delta) -> void:
 		printt('path', path)
 		for point in path:
 			tileMap.set_cell(0, point, 0, cellTypeToAtlasCoords[CellTypes.Pusher])
+			var tween: Tween = create_tween()
+			tween.set_ease(Tween.EASE_OUT)
+			tween.tween_property(hero, "position", get_local_pos(point), 0.5).set_trans(Tween.TRANS_BOUNCE).set_delay(0.25)
+			await tween.finished
 
 
 
@@ -111,9 +115,19 @@ func get_astar_grid_from_grid2d() -> AStarGrid2D:
 
 
 func get_tile_pos(pos: Vector2) -> Vector2i:
-	return tileMap.local_to_map(pos)
+	var tilePos = tileMap.local_to_map(pos)
+	if tilePos.x >= grid2d.gridSize.x:
+		tilePos.x = grid2d.gridSize.x - 1
+	if tilePos.y >= grid2d.gridSize.y:
+		tilePos.y = grid2d.gridSize.y - 1
+
+	return tilePos
+
+
+func get_local_pos(pos: Vector2) -> Vector2:
+	return tileMap.map_to_local(pos)
 
 
 func get_pos_snapped_to_grid(pos: Vector2):
-	return tileMap.map_to_local(get_tile_pos(pos))
+	return get_local_pos(get_tile_pos(pos))
 
