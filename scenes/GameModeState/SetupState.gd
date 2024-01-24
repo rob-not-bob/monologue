@@ -14,18 +14,20 @@ func enter(_msg := {}) -> void:
 
 
 func create_grid_tiles() -> void:
-	var createGridTile = func(solid: bool, weight: float, delay_turns = 0, num_available = 99) -> GridTile:
+	var createGridTile = func(tileType, solid: bool, weight: float, delay_turns = 0, num_available = 99) -> GridTile:
 		var tile := GridTile.new()
+		tile.tileType = tileType
 		tile.solid = solid
 		tile.pathWeight = weight
 		tile.delay_turns = delay_turns
 		tile.num_available = num_available
 		return tile
 
-	p.cellTypeToGridTile[p.CellTypes.Wall] = createGridTile.call(true, 99999.0, 0, 0)
-	p.cellTypeToGridTile[p.CellTypes.Quicksand] = createGridTile.call(false, 3.0, 2, 10)
-	p.cellTypeToGridTile[p.CellTypes.Pusher] = createGridTile.call(false, 2.0, 0, 5)
-	p.cellTypeToGridTile[p.CellTypes.Floor] = createGridTile.call(false, 1.0, 0, 0)
+	p.cellTypeToGridTile[p.CellTypes.Wall] = createGridTile.call(p.CellTypes.Wall, true, 99999.0, 0, 0)
+	p.cellTypeToGridTile[p.CellTypes.Quicksand] = createGridTile.call(p.CellTypes.Quicksand, false, 3.0, 2, 10)
+	p.cellTypeToGridTile[p.CellTypes.Pusher] = createGridTile.call(p.CellTypes.Pusher, false, 2.0, 0, 5)
+	p.cellTypeToGridTile[p.CellTypes.Floor] = createGridTile.call(p.CellTypes.Floor,
+	false, 1.0, 0, 0)
 
 
 func create_grid_from_tilemap():

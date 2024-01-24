@@ -10,6 +10,8 @@ func process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("place_tile"):
 		place_tile()
+	if Input.is_action_just_pressed("erase_tile"):
+		erase_tile()
 
 	if Input.is_action_just_pressed("start"):
 		state_machine.transition_to("RunState")
@@ -39,7 +41,6 @@ func process(_delta: float) -> void:
 
 
 func enter(_msg := {}) -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	var tween: Tween = p.create_tween()
 	tween.tween_property(p, "scale", Vector2(3, 3), 0.5)
 	p.ui.hide()
@@ -48,7 +49,6 @@ func enter(_msg := {}) -> void:
 
 
 func exit() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	p.indicator.hide()
 
 
@@ -88,7 +88,60 @@ func place_tile():
 	if p.get_tile_pos(p.villian.position) == tilePos:
 		return
 
+	var tileToReplace = get_tile_under_cursor()
+	if not can_user_modify_tile(tileToReplace.tileType):
+		return
+
 	p.cellTypeToGridTile[tileType].num_available -= 1
 	p.indicator.set_num_tiles(p.cellTypeToGridTile[tileType].num_available)
 
-	set_tile_cell(tilePos, tileType)
+	set_tile_under_cursor(tileType)
+
+
+func erase_tile():
+	var tileToErase = get_tile_under_cursor()
+
+	if not can_user_erase_tile(tileToErase.tileType):
+		return
+
+	tileToErase.num_available += 1
+	if player_tiles[activeTileIndex] == tileToErase.tileType:
+		p.indicator.set_num_tiles(tileToErase.num_available)
+
+	set_tile_under_cursor(p.CellTypes.Floor)
+
+
+func get_tile_under_cursor() -> GridTile:
+	var indicatorPos = p.get_tile_pos(p.indicator.position)
+	return p.grid2d.get_tile(indicatorPos.x, indicatorPos.y)
+
+
+func set_tile_under_cursor(tileType) -> void:
+	var indicatorPos = p.get_tile_pos(p.indicator.position)
+	set_tile_cell(indicatorPos, tileType)
+
+
+func can_user_modify_tile(tileType) -> bool:
+	match tileType:
+		p.CellTypes.Wall:
+			return false
+		p.CellTypes.Hero:
+			return false
+		p.CellTypes.Villian:
+			return false
+		_:
+			return true
+
+
+func can_user_erase_tile(tileType) -> bool:
+	match tileType:
+		p.CellTypes.Floor:
+			return false
+		p.CellTypes.Wall:
+			return false
+		p.CellTypes.Hero:
+			return false
+		p.CellTypes.Villian:
+			return false
+		_:
+			return true

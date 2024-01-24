@@ -1,6 +1,7 @@
 class_name GridTile
 extends Node
 
+var tileType
 var solid: bool = false
 var pathWeight: float = 1.0
 var node: Node
