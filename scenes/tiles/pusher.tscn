@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://5bccr1b26eoc"]
+
+[ext_resource type="Texture2D" uid="uid://b57urhgom3xqq" path="res://assets/monologue.png" id="1_kp5dv"]
+
+[node name="Pusher" type="Sprite2D"]
+texture = ExtResource("1_kp5dv")
+region_enabled = true
+region_rect = Rect2(64, 224, 32, 32)

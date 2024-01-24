@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://8sgb0jncjc45"]
+
+[ext_resource type="Texture2D" uid="uid://b57urhgom3xqq" path="res://assets/monologue.png" id="1_63rus"]
+
+[node name="Quicksand" type="Sprite2D"]
+texture = ExtResource("1_63rus")
+region_enabled = true
+region_rect = Rect2(32, 224, 32, 32)
