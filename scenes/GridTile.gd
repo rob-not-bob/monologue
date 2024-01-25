@@ -1,5 +1,5 @@
 class_name GridTile
-extends Node
+extends RefCounted
 
 var tileType
 var solid: bool = false

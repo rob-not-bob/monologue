@@ -16,6 +16,8 @@ func _ready() -> void:
 	# The state machine assigns itself to the State objects' state_machine property.
 	for child in get_children():
 		child.state_machine = self
+		if "p" in child:
+			child.p = owner
 
 	state = initial_state
 	state.enter()

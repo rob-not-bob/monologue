@@ -2,6 +2,10 @@
 class_name State
 extends Node
 
+# Reference to the parent
+# State machines should override this property to change the type
+# var p: Node
+
 # Reference to the state machine, to call its `transition_to()` method directly.
 # That's one unorthodox detail of our state implementation, as it adds a dependency between the
 # state and the state machine objects, but we found it to be most efficient for our needs.

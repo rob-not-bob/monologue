@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://dskuk8u3qc5yx"]
+
+[ext_resource type="Script" path="res://scenes/ui/ui_manager.gd" id="1_ss0hv"]
+[ext_resource type="PackedScene" uid="uid://ed3icfpipqcq" path="res://scenes/ui/title_ui.tscn" id="2_v0b30"]
+[ext_resource type="PackedScene" uid="uid://3xdkng71rumi" path="res://scenes/ui/main_ui.tscn" id="3_8vab2"]
+[ext_resource type="PackedScene" uid="uid://cdpwttog0qoml" path="res://scenes/ui/pause_ui.tscn" id="4_cs5dr"]
+[ext_resource type="PackedScene" uid="uid://bwg6ae8w3qype" path="res://scenes/ui/fail_ui.tscn" id="5_mibfy"]
+[ext_resource type="PackedScene" uid="uid://l2ktitwen365" path="res://scenes/ui/success_ui.tscn" id="6_iyhj1"]
+[ext_resource type="Script" path="res://scenes/state_test.gd" id="7_vltsr"]
+
+[node name="UIManager" type="CanvasLayer"]
+script = ExtResource("1_ss0hv")
+
+[node name="TitleUI" parent="." instance=ExtResource("2_v0b30")]
+visible = false
+
+[node name="MainUI" parent="." instance=ExtResource("3_8vab2")]
+visible = false
+
+[node name="PauseUI" parent="." instance=ExtResource("4_cs5dr")]
+visible = false
+
+[node name="FailUI" parent="." instance=ExtResource("5_mibfy")]
+visible = false
+
+[node name="SuccessUI" parent="." instance=ExtResource("6_iyhj1")]
+visible = false
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("7_vltsr")

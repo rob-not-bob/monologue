@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdpwttog0qoml"]
+
+[ext_resource type="Script" path="res://scenes/ui/pause_ui.gd" id="1_oxix0"]
+[ext_resource type="Theme" uid="uid://cxg2fig7yt5um" path="res://assets/UITheme.tres" id="2_bbsms"]
+
+[node name="PauseUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oxix0")
+
+[node name="BGOverlay" type="Panel" parent="."]
+modulate = Color(0, 0, 0, 0.74902)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme = ExtResource("2_bbsms")
+theme_type_variation = &"OverlayVBox"
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_bbsms")
+theme_type_variation = &"HeaderLarge"
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(922, 30)
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_bbsms")
+text = "Resume"
+
+[node name="ToTrapPlacementButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_bbsms")
+text = "Back To Trap Placement"
+
+[node name="ToTitleScreenButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_bbsms")
+text = "Back To Title Screen"
+
+[node name="ExitGame" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_bbsms")
+text = "Exit Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ToTrapPlacementButton" to="." method="_on_to_trap_placement_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ToTitleScreenButton" to="." method="_on_to_title_screen_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExitGame" to="." method="_on_exit_game_pressed"]

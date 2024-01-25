@@ -1,0 +1,98 @@
+[gd_scene load_steps=4 format=3 uid="uid://ed3icfpipqcq"]
+
+[ext_resource type="Script" path="res://scenes/ui/title_ui.gd" id="1_js1dy"]
+[ext_resource type="Texture2D" uid="uid://b57urhgom3xqq" path="res://assets/monologue.png" id="2_6kyl0"]
+[ext_resource type="Theme" uid="uid://cxg2fig7yt5um" path="res://assets/UITheme.tres" id="3_wn30y"]
+
+[node name="TitleUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_js1dy")
+
+[node name="BG" type="Panel" parent="."]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Hero" type="Sprite2D" parent="MarginContainer/HBoxContainer"]
+position = Vector2(890, 385)
+rotation = 0.161422
+scale = Vector2(30, 30)
+texture = ExtResource("2_6kyl0")
+region_enabled = true
+region_rect = Rect2(96, 224, 32, 32)
+
+[node name="Villain" type="Sprite2D" parent="MarginContainer/HBoxContainer"]
+position = Vector2(1562, 597)
+rotation = 0.430484
+scale = Vector2(30, 30)
+texture = ExtResource("2_6kyl0")
+region_enabled = true
+region_rect = Rect2(128, 224, 32, 32)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_wn30y")
+theme_type_variation = &"OverlayVBox"
+theme_override_constants/separation = 25
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_wn30y")
+theme_type_variation = &"HeaderLarge"
+text = "Monologue"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="StartGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_wn30y")
+theme_type_variation = &"FlatMenuButton"
+text = "Start Game"
+flat = true
+alignment = 0
+
+[node name="ExitGameButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FlatMenuButton"
+text = "Exit Game"
+flat = true
+alignment = 0
+
+[node name="spacer2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]

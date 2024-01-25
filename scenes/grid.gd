@@ -1,11 +1,16 @@
 class_name Grid2D
-extends Node
+extends RefCounted
 
-@export_category("Grid Properties")
-@export var gridSize: Vector2i = Vector2i.ZERO
-@export var cellSize: Vector2i = Vector2i(16, 16)
+var gridSize: Vector2i = Vector2i.ZERO
+var cellSize: Vector2i = Vector2i(16, 16)
 
 var grid: Array
+
+
+func _init(_gridSize: Vector2i, _cellSize: Vector2i = Vector2i(16, 16)) -> void:
+	gridSize = _gridSize
+	cellSize = _cellSize
+
 
 func init_grid(create_grid_tile: Callable) -> Array:
 	grid = []

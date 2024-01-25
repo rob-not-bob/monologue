@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cxg2fig7yt5um"]
+
+[ext_resource type="FontVariation" uid="uid://dwcruv1fl332j" path="res://assets/default_font_variation.tres" id="1_54ndv"]
+
+[resource]
+default_font = ExtResource("1_54ndv")
+Button/font_sizes/font_size = 40
+FlatMenuButton/base_type = &"Button"
+FlatMenuButton/colors/font_color = Color(0.768627, 0.768627, 0.768627, 1)
+FlatMenuButton/colors/font_hover_color = Color(1, 1, 1, 1)
+FlatMenuButton/colors/font_hover_pressed_color = Color(0.929412, 0.929412, 0.929412, 1)
+HeaderLarge/font_sizes/font_size = 100
+HeaderSmall/font_sizes/font_size = 30
+OverlayVBox/base_type = &"VBoxContainer"
+OverlayVBox/constants/separation = 20

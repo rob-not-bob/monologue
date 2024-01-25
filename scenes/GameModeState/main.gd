@@ -2,11 +2,12 @@ class_name MainScene
 extends Node2D
 
 @onready var tileMap: TileMapAStarGrid = $TileMap
-@onready var grid2d: Grid2D = $grid
 @onready var indicator: Indicator = $fg_grid_objects/indicator
 @onready var hero: Hero = $fg_grid_objects/hero
 @onready var villian: Villian = $fg_grid_objects/villain
 @onready var ui: UI = $UI
+
+var grid2d = Grid2D.new(Vector2i(20, 12), Vector2i(32, 32))
 
 enum CellTypes { Wall, Floor, Quicksand, Pusher, Hero, Villian }
 var cellTypeToAtlasCoords: Dictionary = {

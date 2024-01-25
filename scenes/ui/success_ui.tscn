@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://l2ktitwen365"]
+
+[ext_resource type="Script" path="res://scenes/ui/success_ui.gd" id="1_687pk"]
+[ext_resource type="Theme" uid="uid://cxg2fig7yt5um" path="res://assets/UITheme.tres" id="1_mygal"]
+
+[node name="SuccessUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_687pk")
+
+[node name="BGOverlay" type="Panel" parent="."]
+modulate = Color(0, 0, 0, 0.74902)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme = ExtResource("1_mygal")
+theme_type_variation = &"OverlayVBox"
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_mygal")
+theme_type_variation = &"HeaderLarge"
+text = "Success!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Message" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_mygal")
+theme_type_variation = &"HeaderSmall"
+text = "Take that hero!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="NextLevelButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Next Level"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]

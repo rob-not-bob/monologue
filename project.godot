@@ -23,7 +23,12 @@ G="*res://scripts/globals.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/stretch/scale_mode="integer"
+window/stretch/mode="viewport"
+
+[gui]
+
+theme/custom="res://assets/UITheme.tres"
+theme/custom_font="res://assets/OpenSans-VariableFont_wdth,wght.ttf"
 
 [input]
 

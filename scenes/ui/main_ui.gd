@@ -1,5 +1,5 @@
 class_name UI
-extends CanvasLayer
+extends Control
 
 @onready var textReveal = $Root/LeftCol/HBoxContainer/Panel/RichTextLabel/TextReveal
 @onready var countdownTimer: CountdownTimer = %CountdownTimer

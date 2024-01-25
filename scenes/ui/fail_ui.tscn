@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwg6ae8w3qype"]
+
+[ext_resource type="Theme" uid="uid://cxg2fig7yt5um" path="res://assets/UITheme.tres" id="1_cu8io"]
+[ext_resource type="Script" path="res://scenes/ui/fail_ui.gd" id="1_rmwyg"]
+
+[node name="FailUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rmwyg")
+
+[node name="BGOverlay" type="Panel" parent="."]
+modulate = Color(0, 0, 0, 0.74902)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme = ExtResource("1_cu8io")
+theme_type_variation = &"OverlayVBox"
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_cu8io")
+theme_type_variation = &"HeaderLarge"
+text = "Oh no!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Explanation" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_cu8io")
+theme_type_variation = &"HeaderSmall"
+text = "The hero reached you before you could finish your monologue..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="spacer" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Retry"
+
+[node name="BackToTitleButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back To Title Screen"
+
+[node name="ExitGameButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/BackToTitleButton" to="." method="_on_back_to_title_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExitGameButton" to="." method="_on_exit_game_button_pressed"]

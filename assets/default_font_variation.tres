@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://dwcruv1fl332j"]
+
+[ext_resource type="FontFile" uid="uid://br04qnwpo0f6d" path="res://assets/OpenSans-VariableFont_wdth,wght.ttf" id="1_swxu1"]
+
+[resource]
+base_font = ExtResource("1_swxu1")
+variation_embolden = 0.67

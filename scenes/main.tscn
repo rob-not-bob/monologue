@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dt7uesanhqu3g"]
+[gd_scene load_steps=12 format=3 uid="uid://dt7uesanhqu3g"]
 
 [ext_resource type="TileSet" uid="uid://dkebr5rm2fevp" path="res://assets/tile_set.tres" id="1_fte23"]
 [ext_resource type="Script" path="res://scenes/GameModeState/main.gd" id="1_u1bv4"]
@@ -7,11 +7,10 @@
 [ext_resource type="Script" path="res://scenes/GameModeState/SetupState.gd" id="3_hr0t3"]
 [ext_resource type="Script" path="res://scenes/GameModeState/BuildState.gd" id="3_lq3qf"]
 [ext_resource type="Script" path="res://scenes/GameModeState/RunState.gd" id="4_akjti"]
-[ext_resource type="Script" path="res://scenes/grid.gd" id="4_kpj4q"]
 [ext_resource type="PackedScene" uid="uid://biq6i58mtvsxy" path="res://scenes/hero/hero.tscn" id="5_ruy3t"]
 [ext_resource type="PackedScene" uid="uid://b4tkbuubj0shc" path="res://scenes/villian/villain.tscn" id="6_mja6a"]
 [ext_resource type="PackedScene" uid="uid://ccfi5g4gtvk0p" path="res://scenes/indicator.tscn" id="7_3f4um"]
-[ext_resource type="PackedScene" uid="uid://3xdkng71rumi" path="res://ui/ui.tscn" id="8_i31hq"]
+[ext_resource type="PackedScene" uid="uid://3xdkng71rumi" path="res://scenes/ui/main_ui.tscn" id="8_i31hq"]
 
 [node name="main" type="Node2D"]
 scale = Vector2(3, 3)
@@ -41,11 +40,6 @@ layer_2/name = "ui"
 layer_2/tile_data = PackedInt32Array()
 script = ExtResource("2_nyrqa")
 gridSize = Vector2i(20, 12)
-
-[node name="grid" type="Node" parent="."]
-script = ExtResource("4_kpj4q")
-gridSize = Vector2i(20, 12)
-cellSize = Vector2i(32, 32)
 
 [node name="fg_grid_objects" type="Node2D" parent="."]
 
