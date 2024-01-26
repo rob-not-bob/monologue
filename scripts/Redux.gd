@@ -2,7 +2,7 @@ class_name Redux
 extends RefCounted
 
 var _state: Dictionary
-var _reducer_callback: Callable
+var _slices: Dictionary = {}
 var _middleware: Array[Callable]
 
 const _callbacks_key_name: String = "__callbacks"
@@ -11,9 +11,16 @@ var _state_subscriptions: Dictionary = {
 }
 
 
-func _init(initial_state: Dictionary, reducer_callback: Callable) -> void:
-	_state = initial_state
-	_reducer_callback = reducer_callback
+func _init() -> void:
+	_state = {}
+
+
+func add_slice(slice: Slice) -> void:
+	assert(not slice.name in _state, "ERROR: '%s' is already defined in state" % slice.name)
+	assert(not slice.name in _slices, "ERROR: '%s' is already defined in slices" % slice.name)
+
+	_slices[slice.name] = slice
+	_state[slice.name] = slice.initial_state
 
 
 func state() -> Dictionary:
@@ -25,12 +32,24 @@ func add_middleware(middleware: Callable):
 
 
 func dispatch(action) -> void:
-	var new_action = action
+	var middleware_action: Action = action
 	for middleware in _middleware:
-		new_action = middleware.call(new_action)
+		middleware_action = middleware.call(middleware_action)
 
-	var _new_state = _reducer_callback.call(_state, new_action)
-	_state.merge(_new_state, true)
+	var split_action = middleware_action.type.split(":")
+	var slice_name: String = split_action[0]
+	var slice_action_name: String = split_action[1]
+
+	assert(slice_name in _state, "ERROR: '%s' is not defined in state")
+	assert(slice_name in _slices, "ERROR: '%s' is not defined in slices")
+
+	var slice: Slice = _slices[slice_name]
+	var slice_action = Action.new(slice_action_name, middleware_action.d)
+	for saga in slice.sagas:
+		saga.call(slice_action)
+
+	var _new_state = slice.reducer.call(_state[slice_name], slice_action)
+	_state[slice_name].merge(_new_state, true)
 
 	# Notify subscribers of state changes
 	for cb in _state_subscriptions[_callbacks_key_name]:
@@ -42,8 +61,8 @@ func dispatch(action) -> void:
 # Subscribe to a particular path in the state
 func subscribe(callback: Callable, path: String = "state"):
 	var paths = path.split(".")
-	var current_state_location: Dictionary = _state
 	var current_sub_location: Dictionary = _state_subscriptions
+	var current_state_location: Dictionary = _state
 
 	# Traverse the _state and _state_subscriptions dictionary
 	# Check to make sure the path exists in _state
@@ -53,15 +72,14 @@ func subscribe(callback: Callable, path: String = "state"):
 		if i == 0:
 			assert(
 				segment == "state" or segment == "s",
-				"ERROR: First part of path must begin with 'state'"
+				"ERROR: First part of path must begin with 'state' or 's'"
 			)
 			continue
 
-		# Check that the path exists in the state
-		assert(
-			segment in current_state_location,
-			"ERROR: '%s' does not exist in state. Cannot subscribe!" % segment
-		)
+			assert(
+				segment in current_state_location,
+				"ERROR: '%s' does not exist in the state. Cannot subscribe!"
+			)
 
 		if not segment in current_sub_location:
 			current_sub_location[segment] = {_callbacks_key_name: []}
@@ -85,3 +103,35 @@ func _notify_subs(new_state: Dictionary, subs_location: Dictionary):
 
 		if new_state[key] is Dictionary:
 			_notify_subs(new_state[key], subs_location[key])
+
+
+class Slice:
+	var name: String
+	var initial_state: Dictionary
+	var reducer: Callable
+	var sagas: Array[Callable]
+
+	func _init(_name: String, _initial_state: Dictionary) -> void:
+		name = _name
+		initial_state = _initial_state
+
+	func create_action(action: String, data: Dictionary = {}) -> Action:
+		return Action.new("%s:%s" % [name, action], data)
+
+	func set_reducer(_reducer: Callable):
+		reducer = _reducer
+
+	func add_saga(saga: Callable):
+		sagas.append(saga)
+
+
+class Action:
+	var type: String
+	var d: Dictionary
+
+	func _init(_type: String, data = {}) -> void:
+		type = _type
+		d = data
+
+	func _to_string() -> String:
+		return "'%s': %s" % [type, d]

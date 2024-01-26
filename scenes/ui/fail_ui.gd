@@ -1,18 +1,13 @@
 extends Control
 
-signal retry()
-signal back_to_title_screen()
-signal exit_game()
-
-
 
 func _on_retry_button_pressed() -> void:
-	retry.emit()
+	Store.redux.dispatch(UISlice.retry_game())
 
 
 func _on_back_to_title_button_pressed() -> void:
-	back_to_title_screen.emit()
+	Store.redux.dispatch(UISlice.change_screen(UISlice.Screens.Title))
 
 
 func _on_exit_game_button_pressed() -> void:
-	exit_game.emit()
+	Store.redux.dispatch(UISlice.quit_game())

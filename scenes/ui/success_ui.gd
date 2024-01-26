@@ -2,11 +2,14 @@ extends Control
 
 @onready var messageLabel: Label = $CenterContainer/VBoxContainer/Message
 
-signal next_level()
+
+func _ready() -> void:
+	Store.redux.subscribe(set_message, "s.ui.success_message")
+
 
 func set_message(message: String) -> void:
 	messageLabel.text = message
 
 
 func _on_next_level_button_pressed() -> void:
-	next_level.emit()
+	Store.redux.dispatch(UISlice.next_level())

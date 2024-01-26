@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 G="*res://scripts/globals.gd"
+Store="*res://scripts/store.gd"
+Slices="*res://scripts/slices/Slices.tscn"
 
 [display]
 

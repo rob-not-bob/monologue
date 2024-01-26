@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj62vsslje8hh"]
+
+[ext_resource type="Script" path="res://scripts/slices/ui.gd" id="1_shdqx"]
+
+[node name="Slices" type="Node"]
+
+[node name="UISlice" type="Node" parent="."]
+script = ExtResource("1_shdqx")
