@@ -1,7 +1,9 @@
 class_name GameModeStateMachine
 extends StateMachine
 
-#func _ready() -> void:
-#	super()
-#	for child in get_children():
-#		child.p = owner
+
+func _process(delta: float) -> void:
+	if Store.redux.state().ui.is_game_paused:
+		return
+
+	super(delta)

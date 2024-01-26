@@ -45,7 +45,7 @@ func enter(_msg := {}) -> void:
 
 	var tween: Tween = p.create_tween()
 	tween.tween_property(p, "scale", Vector2(3, 3), 0.5)
-	Store.redux.dispatch(UISlice.change_screen(UISlice.Screens.None))
+	Store.redux.dispatch(UISlice.hide_overlays())
 	p.indicator.show()
 
 

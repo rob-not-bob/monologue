@@ -13,7 +13,7 @@ script = ExtResource("1_ss0hv")
 [node name="TitleUI" parent="." instance=ExtResource("2_v0b30")]
 visible = false
 
-[node name="MainUI" parent="." instance=ExtResource("3_8vab2")]
+[node name="MonologueUI" parent="." instance=ExtResource("3_8vab2")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

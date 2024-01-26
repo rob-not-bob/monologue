@@ -8,13 +8,14 @@ extends Control
 func _ready() -> void:
 	randomize()
 	countdownTimer.time_limit_seconds = textReveal.calculate_time_to_reveal()
-	Store.redux.subscribe(_on_screen_change, "s.ui.current_screen")
+	Store.redux.subscribe(_on_show_monologue_changed, "s.ui.is_monologue_showing")
 	Store.redux.subscribe(interrupt, "s.gameActions.has_hero_reached_villian")
 
 
-func _on_screen_change(new_screen) -> void:
-	if new_screen == UISlice.Screens.Main:
-		start_monologue()
+func _on_show_monologue_changed(show_monologue: bool) -> void:
+	if not show_monologue:
+		return
+	start_monologue()
 
 
 func start_monologue() -> void:

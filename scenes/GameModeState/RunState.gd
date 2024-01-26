@@ -43,7 +43,7 @@ func enter(_msg := {}) -> void:
 	var scene_transistion_tween: Tween = p.create_tween()
 	scene_transistion_tween.tween_property(p, "scale", Vector2(2, 2), 0.5)
 	await scene_transistion_tween.finished
-	Store.redux.dispatch(UISlice.change_screen(UISlice.Screens.Main))
+	Store.redux.dispatch(UISlice.set_show_monologue(true))
 
 	path = calculate_path(p.hero.position, p.villian.position)
 

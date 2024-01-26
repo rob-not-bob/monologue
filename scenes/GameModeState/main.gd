@@ -41,3 +41,8 @@ func get_local_pos(pos: Vector2) -> Vector2:
 
 func get_pos_snapped_to_grid(pos: Vector2):
 	return get_local_pos(get_tile_pos(pos))
+
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("pause"):
+		Store.redux.dispatch(UISlice.toggle_pause())
