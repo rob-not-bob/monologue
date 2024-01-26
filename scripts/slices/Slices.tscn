@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dj62vsslje8hh"]
+[gd_scene load_steps=4 format=3 uid="uid://dj62vsslje8hh"]
 
 [ext_resource type="Script" path="res://scripts/slices/ui.gd" id="1_shdqx"]
 [ext_resource type="Script" path="res://scripts/slices/build.gd" id="2_axwl8"]
+[ext_resource type="Script" path="res://scripts/slices/game_actions.gd" id="3_tpc0n"]
 
 [node name="Slices" type="Node"]
 
@@ -10,3 +11,6 @@ script = ExtResource("1_shdqx")
 
 [node name="BuildSlice" type="Node" parent="."]
 script = ExtResource("2_axwl8")
+
+[node name="GameActionsSlice" type="Node" parent="."]
+script = ExtResource("3_tpc0n")

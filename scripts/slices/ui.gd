@@ -34,7 +34,7 @@ static var slice: Redux.Slice = (
 	. new(
 		"ui",
 		{
-			"current_screen": Screens.Title,
+			"current_screen": Screens.None,
 			"is_game_paused": false,
 			"success_message": "",
 		},
@@ -60,8 +60,11 @@ static func quit_game() -> Redux.Action:
 
 enum Screens {
 	Title,
-	Build,
-	Runner,
+	Main,
+	Pause,
+	Fail,
+	Success,
+	None,
 }
 
 

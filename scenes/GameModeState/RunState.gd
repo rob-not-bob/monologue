@@ -12,7 +12,7 @@ func process(_delta: float) -> void:
 		return
 
 	if has_hero_reached_villian():
-		p.ui.interrupt()
+		Store.redux.dispatch(GameActionsSlice.hero_reached_villian())
 		hero_moving = false
 		return
 
@@ -43,8 +43,7 @@ func enter(_msg := {}) -> void:
 	var scene_transistion_tween: Tween = p.create_tween()
 	scene_transistion_tween.tween_property(p, "scale", Vector2(2, 2), 0.5)
 	await scene_transistion_tween.finished
-	p.ui.show()
-	p.ui.start_monologue()
+	Store.redux.dispatch(UISlice.change_screen(UISlice.Screens.Main))
 
 	path = calculate_path(p.hero.position, p.villian.position)
 

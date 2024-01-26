@@ -2,7 +2,7 @@ extends Control
 
 
 func _on_start_game_button_pressed() -> void:
-	Store.redux.dispatch(UISlice.change_screen(UISlice.Screens.Build))
+	Store.redux.dispatch(UISlice.change_screen(UISlice.Screens.None))
 
 
 func _on_exit_game_button_pressed() -> void:

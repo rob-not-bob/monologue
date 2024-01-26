@@ -5,7 +5,7 @@ extends Node2D
 @onready var indicator: Indicator = $fg_grid_objects/indicator
 @onready var hero: Hero = $fg_grid_objects/hero
 @onready var villian: Villian = $fg_grid_objects/villain
-@onready var ui: UI = $UI
+@onready var uiManager: UIController = $UIManager
 
 var grid2d = Grid2D.new(Vector2i(20, 12), Vector2i(32, 32))
 

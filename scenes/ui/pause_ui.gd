@@ -11,7 +11,7 @@ func _on_resume_button_pressed() -> void:
 
 
 func _on_to_trap_placement_button_pressed() -> void:
-	Store.redux.dispatch(UISlice.change_screen(UISlice.Screens.Build))
+	Store.redux.dispatch(UISlice.change_screen(UISlice.Screens.None))
 
 
 func _on_to_title_screen_button_pressed() -> void:

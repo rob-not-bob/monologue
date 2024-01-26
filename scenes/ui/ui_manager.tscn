@@ -14,9 +14,14 @@ script = ExtResource("1_ss0hv")
 visible = false
 
 [node name="MainUI" parent="." instance=ExtResource("3_8vab2")]
-visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PauseUI" parent="." instance=ExtResource("4_cs5dr")]
+visible = false
 
 [node name="FailUI" parent="." instance=ExtResource("5_mibfy")]
 visible = false

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://biq6i58mtvsxy" path="res://scenes/hero/hero.tscn" id="5_ruy3t"]
 [ext_resource type="PackedScene" uid="uid://b4tkbuubj0shc" path="res://scenes/villian/villain.tscn" id="6_mja6a"]
 [ext_resource type="PackedScene" uid="uid://ccfi5g4gtvk0p" path="res://scenes/indicator.tscn" id="7_3f4um"]
-[ext_resource type="PackedScene" uid="uid://3xdkng71rumi" path="res://scenes/ui/main_ui.tscn" id="8_i31hq"]
+[ext_resource type="PackedScene" uid="uid://dskuk8u3qc5yx" path="res://scenes/ui/ui_manager.tscn" id="11_watg4"]
 
 [node name="main" type="Node2D"]
 scale = Vector2(3, 3)
@@ -51,5 +51,4 @@ position = Vector2(592, 336)
 
 [node name="indicator" parent="fg_grid_objects" instance=ExtResource("7_3f4um")]
 
-[node name="UI" parent="." instance=ExtResource("8_i31hq")]
-visible = false
+[node name="UIManager" parent="." instance=ExtResource("11_watg4")]
