@@ -40,11 +40,11 @@ func dispatch(action) -> void:
 	var slice_name: String = split_action[0]
 	var slice_action_name: String = split_action[1]
 
-	assert(slice_name in _state, "ERROR: '%s' is not defined in state")
-	assert(slice_name in _slices, "ERROR: '%s' is not defined in slices")
+	assert(slice_name in _state, "ERROR: '%s' is not defined in state" % slice_name)
+	assert(slice_name in _slices, "ERROR: '%s' is not defined in slices" % slice_name)
 
 	var slice: Slice = _slices[slice_name]
-	var slice_action = Action.new(slice_action_name, middleware_action.d)
+	var slice_action := Action.new(slice_action_name, middleware_action.d)
 	for saga in slice.sagas:
 		saga.call(slice_action)
 
@@ -55,7 +55,7 @@ func dispatch(action) -> void:
 	for cb in _state_subscriptions[_callbacks_key_name]:
 		cb.call(_state)
 
-	_notify_subs(_new_state, _state_subscriptions)
+	_notify_subs({slice_name: _new_state}, _state_subscriptions)
 
 
 # Subscribe to a particular path in the state

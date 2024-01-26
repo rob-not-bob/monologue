@@ -7,6 +7,10 @@ func _ready() -> void:
 	Store.redux.subscribe(set_message, "s.ui.success_message")
 
 
+func test(screen) -> void:
+	printt("test", screen)
+
+
 func set_message(message: String) -> void:
 	messageLabel.text = message
 
