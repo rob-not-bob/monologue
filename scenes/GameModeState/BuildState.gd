@@ -1,8 +1,5 @@
 extends GameModeState
 
-var activeTileIndex = 0
-var player_tiles = [p.CellTypes.Quicksand, p.CellTypes.Pusher]
-
 
 func process(_delta: float) -> void:
 	var mouse_pos: Vector2i = p.get_global_mouse_position() / p.scale
@@ -17,34 +14,38 @@ func process(_delta: float) -> void:
 		state_machine.transition_to("RunState")
 
 	if Input.is_action_just_pressed("select_tile_up"):
-		add_tile_index(1)
+		Store.redux.dispatch(BuildSlice.addTileIndex(1))
 	if Input.is_action_just_pressed("select_tile_down"):
-		add_tile_index(-1)
+		Store.redux.dispatch(BuildSlice.addTileIndex(-1))
 	if Input.is_action_just_pressed("select_tile_1"):
-		select_tile_index(0)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(0))
 	if Input.is_action_just_pressed("select_tile_2"):
-		select_tile_index(1)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(1))
 	if Input.is_action_just_pressed("select_tile_3"):
-		select_tile_index(2)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(2))
 	if Input.is_action_just_pressed("select_tile_4"):
-		select_tile_index(3)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(3))
 	if Input.is_action_just_pressed("select_tile_5"):
-		select_tile_index(4)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(4))
 	if Input.is_action_just_pressed("select_tile_6"):
-		select_tile_index(5)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(6))
 	if Input.is_action_just_pressed("select_tile_7"):
-		select_tile_index(6)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(6))
 	if Input.is_action_just_pressed("select_tile_8"):
-		select_tile_index(7)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(7))
 	if Input.is_action_just_pressed("select_tile_9"):
-		select_tile_index(8)
+		Store.redux.dispatch(BuildSlice.selectTileIndex(8))
 
 
 func enter(_msg := {}) -> void:
+	Store.redux.subscribe(_on_active_tile_change, "s.build.tile.activeTile")
+	Store.redux.dispatch(BuildSlice.addPlaceableTile(p.CellTypes.Quicksand, 10))
+	Store.redux.dispatch(BuildSlice.addPlaceableTile(p.CellTypes.Pusher, 5))
+	Store.redux.dispatch(BuildSlice.selectTileIndex(0))
+
 	var tween: Tween = p.create_tween()
 	tween.tween_property(p, "scale", Vector2(3, 3), 0.5)
 	p.ui.hide()
-	select_tile_index(activeTileIndex)
 	p.indicator.show()
 
 
@@ -52,35 +53,23 @@ func exit() -> void:
 	p.indicator.hide()
 
 
+func _on_active_tile_change(new_tile):
+	p.indicator.set_tile(p.cellTypeToScene[new_tile.type], new_tile.num_available)
+
+
 func set_tile_cell(tilePos: Vector2i, cellType):
 	p.tileMap.set_cell(0, tilePos, 0, p.cellTypeToAtlasCoords[cellType])
 	p.grid2d.set_tile(tilePos.x, tilePos.y, p.cellTypeToGridTile[cellType])
 
 
-func add_tile_index(add_amount: int):
-	activeTileIndex = (activeTileIndex + add_amount) % player_tiles.size()
-	select_tile_index(activeTileIndex)
-
-
-func select_tile_index(index: int):
-	if index - 1 > player_tiles.size():
-		return
-
-	activeTileIndex = index
-	var tileType = player_tiles[activeTileIndex]
-
-	p.indicator.set_tile(p.cellTypeToScene[tileType], p.cellTypeToGridTile[tileType].num_available)
-
-
 func place_tile():
-	var tileType = player_tiles[activeTileIndex]
-	var tile = p.cellTypeToGridTile[tileType]
+	var tile = Store.redux.state().build.tile.activeTile
 
 	if tile.num_available <= 0:
 		return
 
 	var tilePos = p.get_tile_pos(p.indicator.position)
-	if p.grid2d.get_tile(tilePos.x, tilePos.y) == tile:
+	if p.grid2d.get_tile(tilePos.x, tilePos.y).tileType == tile.type:
 		return
 
 	if p.get_tile_pos(p.hero.position) == tilePos:
@@ -92,10 +81,9 @@ func place_tile():
 	if not can_user_modify_tile(tileToReplace.tileType):
 		return
 
-	p.cellTypeToGridTile[tileType].num_available -= 1
-	p.indicator.set_num_tiles(p.cellTypeToGridTile[tileType].num_available)
+	Store.redux.dispatch(BuildSlice.addNumAvailable(tile.type, -1))
 
-	set_tile_under_cursor(tileType)
+	set_tile_under_cursor(tile.type)
 
 
 func erase_tile():
@@ -104,9 +92,7 @@ func erase_tile():
 	if not can_user_erase_tile(tileToErase.tileType):
 		return
 
-	tileToErase.num_available += 1
-	if player_tiles[activeTileIndex] == tileToErase.tileType:
-		p.indicator.set_num_tiles(tileToErase.num_available)
+	Store.redux.dispatch(BuildSlice.addNumAvailable(tileToErase.tileType, 1))
 
 	set_tile_under_cursor(p.CellTypes.Floor)
 

@@ -48,14 +48,14 @@ func dispatch(action) -> void:
 	for saga in slice.sagas:
 		saga.call(slice_action)
 
-	var _new_state = slice.reducer.call(_state[slice_name], slice_action)
-	_state[slice_name].merge(_new_state, true)
+	var new_state = slice.reducer.call(_state[slice_name].duplicate(true), slice_action)
+	_state[slice_name] = objectMerge(_state[slice_name], new_state)
 
 	# Notify subscribers of state changes
 	for cb in _state_subscriptions[_callbacks_key_name]:
 		cb.call(_state)
 
-	_notify_subs({slice_name: _new_state}, _state_subscriptions)
+	_notify_subs({slice_name: new_state}, _state_subscriptions)
 
 
 # Subscribe to a particular path in the state
@@ -89,6 +89,10 @@ func subscribe(callback: Callable, path: String = "state"):
 		current_sub_location = current_sub_location[segment]
 
 	var callbacks: Array = current_sub_location.get(_callbacks_key_name)
+	for cb in callbacks:
+		if cb == callback:
+			return
+
 	callbacks.append(callback)
 
 
@@ -103,6 +107,46 @@ func _notify_subs(new_state: Dictionary, subs_location: Dictionary):
 
 		if new_state[key] is Dictionary:
 			_notify_subs(new_state[key], subs_location[key])
+
+
+func objectMerge(a: Dictionary, b: Dictionary) -> Dictionary:
+	var aDup = a.duplicate(true)
+	var bDup = b.duplicate(true)
+	var mergedDict: Dictionary = aDup
+
+	for key in bDup:
+		var bValue = bDup[key]
+		if not key in aDup:
+			mergedDict[key] = bValue
+			continue
+
+		var aValue = aDup[key]
+
+		if aValue is Dictionary and bValue is Dictionary:
+			mergedDict[key] = objectMerge(aValue, bValue)
+		else:
+			mergedDict[key] = bValue
+
+	return mergedDict
+
+
+# Creates an object with route path set to value
+# i.e. c("a.b.c", 1) => {"a": {"b": {"c": 1}}}
+static func c(path: String, value) -> Dictionary:
+	var segments: PackedStringArray = path.split(".")
+
+	var obj := {}
+	var obj_traversal = obj
+	for i in range(segments.size()):
+		var key = segments[i]
+		if i == segments.size() - 1:
+			obj_traversal[key] = value
+			break
+
+		obj_traversal[key] = {}
+		obj_traversal = obj_traversal[key]
+
+	return obj
 
 
 class Slice:
